@@ -1,0 +1,45 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ include "single.fullname" . }}
+  labels:
+    app: {{ include "single.name" . }}
+    chart: {{ include "single.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "single.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "single.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: COLOR
+            value: {{ .Values.config.color }}
+          - name: TITLE
+            value: {{ .Values.config.title }}
+          - name: BODY
+            value: {{ .Values.config.body }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources: {}

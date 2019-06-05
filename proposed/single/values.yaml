@@ -1,0 +1,25 @@
+replicaCount: 1
+
+image:
+  repository: lalyos/lunch-wto
+  tag: latest
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort
+  port: 80
+
+config:
+  color: lightgreen
+  title: Hello from helm
+  #body: todo ... rancherize
+
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+  path: /
+  hostPostfix: .ing.k8z.eu
