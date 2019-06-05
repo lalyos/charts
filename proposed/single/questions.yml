@@ -1,0 +1,27 @@
+categories:
+- web
+- html
+labels:
+  io.rancher.certified: experimental
+#namespace: colors
+questions:
+- variable: config.color
+  default: lightblue
+  description: "Set the background color og the web page"
+  type: enum
+  options:
+  - lightgreen
+  - lightblue
+  - lightyellow
+  - purple
+  - gray
+  - cyan
+  label: Background Color
+  group: "Configuration"
+  
+- variable: config.title
+  default: "Welcome from Rancher"
+  description: "Main caption rendered as h1"
+  type: string
+  group: "Configuration"
+  label: Page Title
